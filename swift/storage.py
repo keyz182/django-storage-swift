@@ -225,6 +225,10 @@ class SwiftStorage(Storage):
             expires = int(time() + int(self.temp_url_duration))
             method = 'GET'
             path = urlparse.urlsplit(url).path
+
+            #URL starts at /v1
+            path = path[path.find('/v1'):]
+
             msg = '%s\n%s\n%s' % (method, expires, path)
             sig = hmac.new(b(self.temp_url_key),
                            msg.encode('utf-8'),
