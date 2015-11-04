@@ -224,8 +224,9 @@ class SwiftStorage(Storage):
             expires = int(time() + int(self.temp_url_duration))
             method = 'GET'
             path = urlparse.urlsplit(url).path
+            msg = '%s\n%s\n%s' % (method, expires, path)
             sig = hmac.new(b(self.temp_url_key),
-                           b('%s\n%s\n%s' % (method, expires, path)),
+                           msg.encode('utf-8'),
                            sha1).hexdigest()
             url = url + '?temp_url_sig=%s&temp_url_expires=%s' % (sig, expires)
 
