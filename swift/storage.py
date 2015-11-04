@@ -153,6 +153,7 @@ class SwiftStorage(Storage):
                                self.container_name,
                                name,
                                content,
+                               content_length=content.size,
                                http_conn=self.http_conn,
                                content_type=content_type)
         return name
